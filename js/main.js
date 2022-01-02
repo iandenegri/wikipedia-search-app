@@ -10,7 +10,7 @@ document.addEventListener("readystatechange", (event) => {
 const initApp = () => {
     setTheSearchFocus();
 
-    // 3 listeners for DOM for typing
+    // TODO: 3 listeners for DOM for typing
 
     // 1 listener on form
 
@@ -20,7 +20,7 @@ const initApp = () => {
 
 const submitTheSearch = (event) => {
     event.preventDefault();
-    // delete any prior search results
+    // TODO: delete any prior search results
 
     processTheSearch();
 
@@ -28,7 +28,7 @@ const submitTheSearch = (event) => {
 }
 
 const processTheSearch = async () => {
-    // clear stats from last search
+    // TODO: clear stats from last search
 
     const searchTerm = getTheSearchTerm();
 
@@ -36,9 +36,13 @@ const processTheSearch = async () => {
     if (searchTerm === "") {
         return
     }
-    // send request to wikipedia api
-    // get results
+    // send request to wikipedia api and get results
     const resultsArray = await retrieveTheSeachResults(searchTerm);
 
-    return resultsArray;
+    // If results, build them for our UI
+    if (resultsArray.length) {
+
+    }
+
+    // TODO: Set stats to show
 };

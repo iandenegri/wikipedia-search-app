@@ -48,5 +48,19 @@ const requestData = async (searchString) => {
 }
 
 const processWikiResults = (results) => {
-    return 1;
+    const resultArray = [];
+    Object.keys(results).forEach(key => {
+        const id = key;
+        const title = results[key].title;
+        const text = results[key].extract;
+        const img = results[key].hasOwnProperty("thumbnail") ? results[key].thumbnail.source : null;
+        const item = {
+            id: id,
+            title: title,
+            text: text,
+            img: img
+        };
+        resultArray.push(item);
+    })
+    return resultArray;
 }
