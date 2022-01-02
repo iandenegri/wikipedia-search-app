@@ -1,5 +1,5 @@
 import {setTheSearchFocus} from "./searchbar.js"
-import {getTheSearchTerm} from "./dataFuncs.js"
+import {getTheSearchTerm, retrieveTheSeachResults} from "./dataFuncs.js"
 
 document.addEventListener("readystatechange", (event) => {
     if (event.target.readyState === "complete"){
@@ -32,7 +32,13 @@ const processTheSearch = async () => {
 
     const searchTerm = getTheSearchTerm();
 
+    // Check if search query is blank do nothing
+    if (searchTerm === "") {
+        return
+    }
     // send request to wikipedia api
-
     // get results
+    const resultsArray = await retrieveTheSeachResults(searchTerm);
+
+    return resultsArray;
 };
