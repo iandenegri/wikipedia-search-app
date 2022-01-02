@@ -28,7 +28,7 @@ const getMaxChars = () => {
     if (screenWidth < 414) {
         maxChars = 65;
     }
-    if (screenWidth >= 414 && width < 1400) {
+    if (screenWidth >= 414 && screenWidth < 1400) {
         maxChars = 100;
     }
     if (screenWidth >= 1400) {

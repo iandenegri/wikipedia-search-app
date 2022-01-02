@@ -1,6 +1,6 @@
-import {setTheSearchFocus} from "./searchBar.js"
+import {setTheSearchFocus, showClearTextButton, clearPushListener, clearSearchText} from "./searchBar.js"
 import {getTheSearchTerm, retrieveTheSeachResults} from "./dataFuncs.js"
-import {buildSearchResults} from "./searchResults.js"
+import {deleteSearchResults, buildSearchResults, clearStatsLine, setStatsLine} from "./searchResults.js"
 
 document.addEventListener("readystatechange", (event) => {
     if (event.target.readyState === "complete"){
@@ -11,9 +11,11 @@ document.addEventListener("readystatechange", (event) => {
 const initApp = () => {
     setTheSearchFocus();
 
-    // TODO: 3 listeners for DOM for typing
-
-    // 1 listener on form
+    const search = document.getElementById("search");
+    search.addEventListener("input", showClearTextButton);
+    const clear = document.getElementById("clear");
+    clear.addEventListener("click", clearSearchText);
+    clear.addEventListener("keydown", clearPushListener);
 
     const form = document.getElementById("searchBar");
     form.addEventListener("submit", submitTheSearch);
@@ -21,29 +23,26 @@ const initApp = () => {
 
 const submitTheSearch = (event) => {
     event.preventDefault();
-    // TODO: delete any prior search results
-
+    deleteSearchResults();
     processTheSearch();
-
     setTheSearchFocus();
 }
 
 const processTheSearch = async () => {
-    // TODO: clear stats from last search
+    // clear stats from last search
+    clearStatsLine();
 
     const searchTerm = getTheSearchTerm();
-
-    // Check if search query is blank do nothing
     if (searchTerm === "") {
         return 1
     }
-    // send request to wikipedia api and get results
     const resultsArray = await retrieveTheSeachResults(searchTerm);
-
     // If results, build them for our UI
+    console.log("wehhhh")
     if (resultsArray.length) {
         buildSearchResults(resultsArray);
     }
 
-    // TODO: Set stats to show
+    // Set stats to show
+    setStatsLine(resultsArray.length);
 };

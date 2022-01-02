@@ -1,3 +1,12 @@
+export const deleteSearchResults = () => {
+    const parentElement = document.getElementById("searchResults");
+    let child = parentElement.lastElementChild;
+    while (child) {
+        parentElement.removeChild(child);
+        child = parentElement.lastElementChild; // Continue setting and removing children as long as they exist
+    }
+}
+
 export const buildSearchResults = (resultArray) => {
     resultArray.forEach(result =>{
         const resultItem = createResultItem(result);
@@ -47,4 +56,17 @@ const createResultText = (result) => {
     resultDescription.textContent = result.text;
     resultText.append(resultDescription);
     return resultText;
+}
+
+export const clearStatsLine = () => {
+    document.getElementById("stats").textContent = "";
+}
+
+export const setStatsLine = (numOfResults) => {
+    const statsLine = document.getElementById("stats");
+    if (numOfResults) {
+        statsLine.textContent = `Displaying ${numOfResults} results.`;
+    } else {
+        statsLine.textContent = "Sorry, no results to display";
+    }
 }
